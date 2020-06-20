@@ -1,0 +1,47 @@
+@startuml
+
+interface Dao
+interface Service
+interface Cashier
+class DaoImp
+class ServiceImp
+class CashierImp
+
+DaoImp ..|> Dao
+ServiceImp ..|> Service
+CashierImp ..|>Cashier
+ServiceImp ..> Dao
+CashierImp ..> Service
+
+interface Dao{
++findBookPriceByIsdn(isbn: String) int
++updateBookStock(isbn: String) void
++updateUserAccount(String username, int price) void
+}
+
+class DaoImp{
+-jdbcTemplate: JDBCTemplate
++findBookPriceByIsdn(isbn: String) int
++updateBookStock(isbn: String) void
++updateUserAccount(String username, int price) void
+}
+
+interface Service{
++purchase(isbn: String, username String) void
+}
+
+class ServiceImp{
+-dao: Dao
++purchase(isbn: String, username String) void
+}
+
+interface Cashier{
++checkout(username: String, isbns:List<String> ) void
+}
+
+class CashierImp{
+-bookShopService: BookShopService
++checkout(username: String, isbns:List<String> ) void
+}
+
+@enduml
